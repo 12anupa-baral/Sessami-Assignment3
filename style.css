@@ -3,7 +3,6 @@ body {
     background-color: #228d99;
     margin: 0;
     padding: 0;
-    /* display: flex; */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -29,17 +28,13 @@ body {
     width: 320px;
 }
 
-h1 {
-    margin-top: 5%;
+h1,
+h2 {
+    margin-top: 2%;
     text-align: center;
     color: white;
 }
 
-h2 {
-    margin-top: 5%;
-    text-align: center;
-    color: white;
-}
 
 form {
     display: flex;
