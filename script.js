@@ -54,20 +54,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // Determine the status (completed or incomplete) and corresponding icon
         const status = item.completed ? "completed" : "incomplete";
         const icon = item.completed ? "fa-check-circle" : "fa-solid fa-check";
+        const statusTextClass = item.completed
+          ? "completed-text"
+          : "incomplete-text"; // Add status text class
 
         li.innerHTML = `
-            <span class="task ${status}">${item.task}</span>
-            <button class="complete-button">
-              <i class="fas ${icon}"></i>
-            
-            </button>
-            <button class="delete-button">
-              <i class="fas fa-trash"></i>
-            </button>
-            <span class="completed-text">${
-              item.completed ? "Completed" : ""
-            }</span>
-          `;
+          <span class="task ${status}">${item.task}</span>
+          <button class="complete-button">
+            <i class="fas ${icon}"></i>
+          </button>
+          <button class="delete-button">
+            <i class="fas fa-trash"></i>
+          </button>
+          <span class="${statusTextClass}">${
+          item.completed ? "Completed" : "Incomplete"
+        }</span>
+        `;
 
         ul.appendChild(li);
       });

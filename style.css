@@ -10,10 +10,10 @@ body {
 }
 
 .container {
-    background-color: #a3e8f6;
+    background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 50px;
+    padding: 20px;
     width: 320px;
 }
 
@@ -67,21 +67,29 @@ span.task {
 
 button.complete-button,
 button.delete-button {
-    color: #333;
     background: none;
+    color: black;
     border: none;
     cursor: pointer;
 }
 
 .completed-text {
     color: #28a745;
+    /* Green color for completed tasks */
     font-weight: bold;
     margin-left: 10px;
 }
 
+.incomplete-text {
+    color: red;
+    /* Red color for incomplete tasks */
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+
 .fa-check-circle,
 .fa-circle {
-    color: #333;
     font-size: 20px;
     margin-right: 10px;
 }
