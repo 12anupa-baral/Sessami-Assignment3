@@ -53,12 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Determine the status (completed or incomplete) and corresponding icon
         const status = item.completed ? "completed" : "incomplete";
-        const icon = item.completed ? "fa-check-circle" : "fa-circle";
+        const icon = item.completed ? "fa-check-circle" : "fa-solid fa-check";
 
         li.innerHTML = `
             <span class="task ${status}">${item.task}</span>
             <button class="complete-button">
               <i class="fas ${icon}"></i>
+            
             </button>
             <button class="delete-button">
               <i class="fas fa-trash"></i>
