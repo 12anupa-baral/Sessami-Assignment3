@@ -10,10 +10,10 @@ body {
 }
 
 .container {
-    background-color: #fff;
+    background-color: #a3e8f6;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 50px;
     width: 320px;
 }
 
@@ -67,6 +67,7 @@ span.task {
 
 button.complete-button,
 button.delete-button {
+    color: #333;
     background: none;
     border: none;
     cursor: pointer;
@@ -80,6 +81,7 @@ button.delete-button {
 
 .fa-check-circle,
 .fa-circle {
+    color: #333;
     font-size: 20px;
     margin-right: 10px;
 }
