@@ -1,25 +1,44 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #228d99;
     margin: 0;
     padding: 0;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
 .container {
+    margin-top: 5%;
+    margin-left: 38%;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 50px;
+    width: 320px;
+}
+
+.lists {
+    margin-top: 2%;
+    margin-left: 38%;
+    background-color: #000000;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 50px;
     width: 320px;
 }
 
 h1 {
+    margin-top: 5%;
     text-align: center;
-    color: #333;
+    color: white;
+}
+
+h2 {
+    margin-top: 5%;
+    text-align: center;
+    color: white;
 }
 
 form {
@@ -51,6 +70,8 @@ button:hover {
 ul {
     list-style: none;
     padding: 0;
+    color: white;
+    font-weight: bold;
 }
 
 li {
@@ -68,21 +89,19 @@ span.task {
 button.complete-button,
 button.delete-button {
     background: none;
-    color: black;
+    color: rgb(255, 255, 255);
     border: none;
     cursor: pointer;
 }
 
 .completed-text {
     color: #28a745;
-    /* Green color for completed tasks */
     font-weight: bold;
     margin-left: 10px;
 }
 
 .incomplete-text {
     color: red;
-    /* Red color for incomplete tasks */
     font-weight: bold;
     margin-left: 10px;
 }

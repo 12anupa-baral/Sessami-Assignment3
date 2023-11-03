@@ -51,12 +51,12 @@ document.addEventListener("DOMContentLoaded", function () {
       this.items.forEach((item) => {
         const li = document.createElement("li");
 
-        // Determine the status (completed or incomplete) and corresponding icon
+        // Determine the status
         const status = item.completed ? "completed" : "incomplete";
         const icon = item.completed ? "fa-check-circle" : "fa-solid fa-check";
         const statusTextClass = item.completed
           ? "completed-text"
-          : "incomplete-text"; // Add status text class
+          : "incomplete-text"; // status text
 
         li.innerHTML = `
           <span class="task ${status}">${item.task}</span>
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ul.appendChild(li);
       });
 
-      // Add event listeners for the complete and delete buttons
+      //  event listeners for the complete and delete buttons
       const completeButtons = ul.querySelectorAll(".complete-button");
       completeButtons.forEach((button, index) => {
         button.addEventListener("click", () => handleCompleteTask(index));
