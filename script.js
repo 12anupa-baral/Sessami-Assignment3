@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     markTodoAsCompleted(task) {
       const todo = this.items.find((item) => item.task === task);
       if (todo) {
-        todo.completed = true;
+        todo.completed = !todo.completed; // Toggle completion status
         this.saveTodoToLocalStorage();
         this.renderToPage();
       }
@@ -50,22 +50,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.items.forEach((item) => {
         const li = document.createElement("li");
+
+        // Determine the status (completed or incomplete) and corresponding icon
         const status = item.completed ? "completed" : "incomplete";
+        const icon = item.completed ? "fa-check-circle" : "fa-circle";
 
         li.innerHTML = `
-            ${item.task} - ${status}
+            <span class="task ${status}">${item.task}</span>
+            <button class="complete-button">
+              <i class="fas ${icon}"></i>
+            </button>
             <button class="delete-button">
               <i class="fas fa-trash"></i>
             </button>
+            <span class="completed-text">${
+              item.completed ? "Completed" : ""
+            }</span>
           `;
 
         ul.appendChild(li);
       });
 
-      // Add event listeners for the delete buttons
+      // Add event listeners for the complete and delete buttons
+      const completeButtons = ul.querySelectorAll(".complete-button");
+      completeButtons.forEach((button, index) => {
+        button.addEventListener("click", () => handleCompleteTask(index));
+      });
+
       const deleteButtons = ul.querySelectorAll(".delete-button");
       deleteButtons.forEach((button, index) => {
-        button.addEventListener("click", () => handleDeleteTodo(index));
+        button.addEventListener("click", () => handleDeleteTask(index));
       });
     }
   }
@@ -83,7 +97,12 @@ document.addEventListener("DOMContentLoaded", function () {
     input.value = "";
   });
 
-  function handleDeleteTodo(index) {
+  function handleCompleteTask(index) {
+    const task = TODO_LIST.items[index].task;
+    TODO_LIST.markTodoAsCompleted(task);
+  }
+
+  function handleDeleteTask(index) {
     const task = TODO_LIST.items[index].task;
     TODO_LIST.removeTodo(task);
   }
