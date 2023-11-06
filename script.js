@@ -4,9 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const ul = document.getElementById("todo-list");
 
   class Todo {
-    constructor(task) {
+    constructor(id, task, completed) {
+      this.id = id;
       this.task = task;
-      this.completed = false;
+      this.completed = completed;
     }
   }
 
@@ -17,7 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     initializeWithCachedTodos() {
       const todos = JSON.parse(localStorage.getItem("todos")) || [];
-      this.items = todos;
+      this.items = todos.map(
+        (todo) => new Todo(todo.id, todo.task, todo.completed)
+      );
+      this.renderToPage();
     }
 
     addTodo(todo) {
@@ -26,16 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
       this.renderToPage();
     }
 
-    removeTodo(task) {
-      this.items = this.items.filter((item) => item.task !== task);
+    removeTodoById(id) {
+      this.items = this.items.filter((item) => item.id !== id);
       this.saveTodoToLocalStorage();
       this.renderToPage();
     }
 
-    markTodoAsCompleted(task) {
-      const todo = this.items.find((item) => item.task === task);
+    markTodoAsCompleted(id) {
+      const todo = this.items.find((item) => item.id === id);
       if (todo) {
-        todo.completed = !todo.completed; // Toggle completion status
+        todo.completed = !todo.completed;
         this.saveTodoToLocalStorage();
         this.renderToPage();
       }
@@ -46,24 +50,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     renderToPage() {
-      ul.innerHTML = ""; // Clear the existing list
+      ul.innerHTML = "";
 
       this.items.forEach((item) => {
         const li = document.createElement("li");
 
-        // Determine the status
         const status = item.completed ? "completed" : "incomplete";
         const icon = item.completed ? "fa-check-circle" : "fa-solid fa-check";
         const statusTextClass = item.completed
           ? "completed-text"
-          : "incomplete-text"; // status text
+          : "incomplete-text";
 
         li.innerHTML = `
           <span class="task ${status}">${item.task}</span>
-          <button class="complete-button">
+          <button class="complete-button" data-id="${item.id}">
             <i class="fas ${icon}"></i>
           </button>
-          <button class="delete-button">
+          <button class="delete-button" data-id="${item.id}">
             <i class="fas fa-trash"></i>
           </button>
           <span class="${statusTextClass}">${
@@ -74,15 +77,20 @@ document.addEventListener("DOMContentLoaded", function () {
         ul.appendChild(li);
       });
 
-      //  event listeners for the complete and delete buttons
       const completeButtons = ul.querySelectorAll(".complete-button");
-      completeButtons.forEach((button, index) => {
-        button.addEventListener("click", () => handleCompleteTask(index));
+      completeButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const id = parseInt(event.currentTarget.getAttribute("data-id"));
+          TODO_LIST.markTodoAsCompleted(id);
+        });
       });
 
       const deleteButtons = ul.querySelectorAll(".delete-button");
-      deleteButtons.forEach((button, index) => {
-        button.addEventListener("click", () => handleDeleteTask(index));
+      deleteButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const id = parseInt(event.currentTarget.getAttribute("data-id"));
+          TODO_LIST.removeTodoById(id);
+        });
       });
     }
   }
@@ -93,23 +101,12 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     if (input.value === "") return;
 
-    const newTask = new Todo(input.value);
+    const newTask = new Todo(Date.now(), input.value, false);
 
     TODO_LIST.addTodo(newTask);
 
     input.value = "";
   });
 
-  function handleCompleteTask(index) {
-    const task = TODO_LIST.items[index].task;
-    TODO_LIST.markTodoAsCompleted(task);
-  }
-
-  function handleDeleteTask(index) {
-    const task = TODO_LIST.items[index].task;
-    TODO_LIST.removeTodo(task);
-  }
-
   TODO_LIST.initializeWithCachedTodos();
-  TODO_LIST.renderToPage();
 });
